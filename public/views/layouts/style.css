@@ -1,0 +1,43 @@
+#title, #content{
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+#main-container {
+    background-color: whitesmoke;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#title {
+    text-align: left;
+    font-size: 35px;
+    padding-top: 20px;
+}
+
+#first-line, #second-line{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#survey {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+#button-container{
+    padding-left: 60px;
+    margin-top: 15px;
+
+}
+
+#links-container{
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-top: 15px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
