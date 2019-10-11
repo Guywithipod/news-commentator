@@ -6,15 +6,14 @@ const PORT = process.env.PORT || 3000;
 const axios = require("axios")
 const cheerio = require("cheerio")
 
+app.use(express.static("public"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 app.engine("handlebars", exphbs({ defaultLayout: "main"}));
 app.set("view engine", "handlebars");
-
-app.set('port')
 
 const routes = require("./routing/apiRoutes.js");
 app.use(routes);
