@@ -1,60 +1,51 @@
-const express = require("express")
-var cheerio = require("cheerio");
-var axios = require("axios");
 
+const express = require("express");
+const exphbs = require ("express-handlebars");
+const app = express();
+const PORT = process.env.PORT || 3000;
+const axios = require("axios")
+const cheerio = require("cheerio")
 
-var PORT = process.env.PORT || 8080;
-
-var app = express();
-
-app.use(express.static("public"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
-require("./routing/apiRoutes")(app);
-require("./routing/htmlRoutes")(app);
+app.engine("handlebars", exphbs({ defaultLayout: "main"}));
+app.set("view engine", "handlebars");
 
-app.listen(PORT, function() {
-    console.log("App listening on PORT: " + PORT);
-  });
+app.set('port')
 
+const routes = require("./routing/apiRoutes.js");
+app.use(routes);
 
-console.log("\n***********************************\n" +
-            "Grabbing every thread name and link\n" +
-            "from reddit's webdev board:" +
-            "\n***********************************\n");
+const results = [];
 
+axios.get("http://www.surrenderat20.net").then(function(response) {
 
-axios.get("https://old.reddit.com/r/webdev/").then(function(response) {
-
-  // Load the HTML into cheerio and save it to a variable
-  // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
   var $ = cheerio.load(response.data);
-
-  // An empty array to save the data that we'll scrape
-  var results = [];
-
-  // With cheerio, find each p-tag with the "title" class
-  // (i: iterator. element: the current element)
-  $("p.title").each(function(i, element) {
-
-    // Save the text of the element in a "title" variable
-    var title = $(element).text();
-
-    // In the currently selected element, look at its child elements (i.e., its a-tags),
-    // then save the values for any "href" attributes that the child elements may have
+  $("h1.news-title").each(function(i, element) {
+    var title = $(element).children().text();
     var link = $(element).children().attr("href");
-
-    // Save these results in an object that we'll push into the results array we defined earlier
+    var quote = $("i").text();
     results.push({
       title: title,
-      link: link
+      link: link,
+      quote: quote
     });
   });
-
-  // Log the results once you've looped through each of the elements found with cheerio
   console.log(results);
 });
 
+//gotta figure out how to send the handlebar page
+app.get("/home",function(req,res){
+    // res.sendFile(__dirname + "/index.html");
+    res.render('home', { "title": "Test" }); 
+});
+
+app.listen(PORT, function() {
+    // Log (server-side) when our server has started
+    console.log("Server listening on: http://localhost:" + PORT);
+  });
   
+
