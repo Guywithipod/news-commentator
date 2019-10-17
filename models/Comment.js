@@ -13,6 +13,7 @@ const commentSchema = new Schema({
         required: true,
     },
     articleId: {
+        unique: true,
         type: Schema.Types.ObjectId,
         require: true
     }

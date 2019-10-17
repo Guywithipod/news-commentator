@@ -22,9 +22,13 @@ const clickHandler = () => document.getElementById("post-comment").addEventListe
 });
 
 const submitHandler = () => document.getElementById("submit-comment").addEventListener('click', function () {
+    //We need some way to know whether we are editing a comment or creating one
+    //We need a route to update a commnet
+    //RIght below this we need to get real data from our form to be able to save real comments
     axios.post("article/comment", {
         "title": "Some fancy article title",
         "comment": "https://www.google.com",
+        
         "articleId": "5da6910619bbac2c9808c05f"
         })
         // write code to clear comment box
