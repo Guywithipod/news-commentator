@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 
-app.use(express.static("public"));
+app.use("/public", express.static(dirname__ + "public"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
