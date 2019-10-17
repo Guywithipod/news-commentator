@@ -1,0 +1,23 @@
+
+      {{#each results}}
+    <h1> {{this.title}} </h1>
+    <h1> {{this.link}}  </h1>
+    <h1> {{this.quote}} </h1>
+<button data-id={{this._id}} onclick={clickHandler()} id="post-comment"> Post Comment </button>
+{{/each}}
+
+<div class="modal hide">
+  <div class="modal-content">
+    <div class="form">
+      <div>
+      <label for="title" class="input-label">Title</label>
+      <input id='title' name="title" type="text">
+      </div>
+      <div>
+      <label for="comment" class="input-label">Comment</label>
+      <input id="comment" name="comment" type="textarea">
+      </div>
+      <button name="articleId" class="submit" id="submit-comment" onclick={submitHandler()}>Submit</button>
+    </div>
+  </div>
+</div>
